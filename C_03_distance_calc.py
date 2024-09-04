@@ -7,7 +7,7 @@ distance_dict = {
 }
 
 # Ask user for units
-starting_unit = input("Enter the unit do you want to convert from: ").lower()
+starting_unit = input("Enter the unit you want to convert from: ").lower()
 ending_unit = input("Enter the unit you want to end up with: ").lower()
 amount = float(input("Enter the value of the starting unit: "))
 
