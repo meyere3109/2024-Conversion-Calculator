@@ -38,8 +38,6 @@ is_valid = "no"
 
 for item in all_units:
     if unit in item:
-        print("raw unit", unit)
-
         # set unit to the first item of the 'valid' list
         unit = item[0]
         print(f"Unit is actually {unit}")
