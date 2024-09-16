@@ -19,6 +19,7 @@ Instructions:
     ''')
 
 
+# checks numbers
 def num_check(question):
     error = "Please enter a whole number that is more than 0.\n"
     while True:
@@ -42,22 +43,39 @@ def num_check(question):
 
 
 def merge(dict1, dict2, dict3, dict4):
-    # merges all dictionaries so we can...
+    # merges all dictionaries
     res = {**dict1, **dict2, **dict3, **dict4}
     return res
 
 
 def dict_checker(question, other_question, every_unit):
     while True:
-
+        error = "Potato"
         # get the units
         starting_unit = input(question).lower()
+
+        if starting_unit in mass_dict:
+            domain = mass_dict
+
+        elif starting_unit in volume_dict:
+            domain = volume_dict
+
+        elif starting_unit in distance_dict:
+            domain = distance_dict
+
+        elif starting_unit in time_dict:
+            domain = time_dict
+
+        else:
+            print(error)
+
         ending_unit = input(other_question).lower()
 
         # allows us to check if we have a valid unit
         unit_valid = "no"
         other_valid = "no"
 
+        # check if the units are valid
         for item in every_unit:
             if starting_unit in item:
                 # set unit to the first item of the 'valid' list
@@ -69,10 +87,11 @@ def dict_checker(question, other_question, every_unit):
                 ending_unit = item[0]
                 other_valid = "yes"
 
-        if starting_unit == "xxx" or starting_unit == "xxx":
-            continue
+        # if starting_unit == "xxx" or starting_unit == "xxx":
+        #     continue
 
-        elif unit_valid == "no" or other_valid == "no":
+        # tell user if not valid units
+        if unit_valid == "no" or other_valid == "no":
             print("That is not a valid unit.")
             dict_checker(question, other_question, every_unit)
 
@@ -108,7 +127,7 @@ distance_dict = {
 }
 
 time_dict = {
-    "ms": 0.001,
+    "ms": 1000,
     "s": 1,
     "min": 60,
     "h": 3600,
@@ -163,6 +182,9 @@ all_units = time_all + mass_all + distance_all + volume_all
 
 # Main routine goes here
 
+# Display name
+print(statement_generator("Ezra's Conversion Calculator", "*"))
+
 # Display instructions if requested
 want_instructions = input("Press <enter> to read the instructions "
                           "or any key to continue. ")
@@ -172,25 +194,30 @@ if want_instructions == "":
 
 while True:
 
+    # get units and check them
     units_involved = dict_checker("Enter the unit do you want to convert from: ", "Enter the unit you want to end up "
                                                                                   "with: ", all_units)
 
+    # classifies units
     from_unit = units_involved[0]
     to_unit = units_involved[1]
 
+    # get value of from_unit
     amount = num_check("Enter the value of the starting unit: ")
 
+    # check to break
     if amount == "xxx" or to_unit == "xxx" or from_unit == "xxx":
         break
 
     # multiply to get our standard value
-    multiply_by = distance_dict[to_unit]
+    multiply_by = all_dicts[to_unit]
     standard = amount * multiply_by
 
     # divide to get our desired value
-    divide_by = distance_dict[from_unit]
+    divide_by = all_dicts[from_unit]
     answer = standard / divide_by
 
+    # answer
     print(f"There are {answer} {to_unit} in {amount} {from_unit}\n")
 
-print("Thank you for using Conversion Calculator. :)")
+print("\nThank you for using Conversion Calculator. :)")
